@@ -2,6 +2,8 @@ package com.finance.montecarlo.models;
 
 import lombok.Data;
 
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -9,10 +11,12 @@ import javax.validation.constraints.NotNull;
 public class Portfolio {
 
     @NotNull(message = "mean is a required field")
-    private float mean;
+    @DecimalMin(value = ".001", message = "mean must be greater than .001")
+    @DecimalMax(value = "100", message = "mean must be less than 100.00")
+    private double mean;
 
     @NotNull(message = "standardDeviation is a required field")
-    private float standardDeviation;
+    private double standardDeviation;
 
     @NotNull(message = "portfolioName is a required field")
     @NotEmpty(message = "portfolioName cannot be empty")

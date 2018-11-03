@@ -8,7 +8,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>montecarlo</name>
+    <name>monteCarlo</name>
     <description>Web service that does financial calculations</description>
 
     <parent>
@@ -25,7 +25,6 @@
     </properties>
 
     <dependencies>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>

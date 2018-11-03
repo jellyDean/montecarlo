@@ -16,6 +16,9 @@ public class MonteCarloConfiguration {
     private int numberOfYears;
 
     @Value("${inflation-rate}")
-    private float inflationRate;
+    private double inflationRate;
+
+    @Value("${initial-investment-amount}")
+    private double initialInvestmentAmount;
 
 }
