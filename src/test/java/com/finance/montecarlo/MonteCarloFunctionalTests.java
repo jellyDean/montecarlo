@@ -33,7 +33,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
-
+/**
+ * Functional tests for testing the application
+ *
+ * @author  Dean Hutton
+ * @version 1.0
+ * @since   2018-11-04
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = MonteCarloApplication.class)
 @WebAppConfiguration

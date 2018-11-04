@@ -16,7 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.validation.Valid;
 
 /**
- * TODO: DO DOCS
+ * Controller for making requests to run simulations
+ *
+ * @author  Dean Hutton
+ * @version 1.0
+ * @since   2018-11-04
  */
 @Controller
 @RequestMapping("/v1")
@@ -32,7 +36,10 @@ public class MonteCarloSimulationController {
     }
 
     /**
-     * TODO: DO DOCS
+     * Runs a monte carlo simulation on array of portfolios
+     *
+     * @param portfolios the portfolios to run the simulation on
+     * @return ResponseEntity containing results of the operation
      */
     @RequestMapping(method = RequestMethod.POST, value = "/finance/montecarlo")
     public ResponseEntity runMonteCarloSimulation(@Valid @RequestBody MonteCarloRequest portfolios, BindingResult bindingResult) {

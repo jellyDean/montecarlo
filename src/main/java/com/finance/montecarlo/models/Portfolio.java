@@ -7,6 +7,14 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Class used for specifying the portfolios to run the simulation on
+ * response
+ *
+ * @author  Dean Hutton
+ * @version 1.0
+ * @since   2018-11-04
+ */
 @Data
 public class Portfolio {
 

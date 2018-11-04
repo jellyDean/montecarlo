@@ -22,4 +22,24 @@
         </logger>
 
     </springProfile>
+
+    <!--Logging profile for when the profile is test. Print to console -->
+    <springProfile name="test">
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <layout class="ch.qos.logback.classic.PatternLayout">
+                <Pattern>
+                    %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
+                </Pattern>
+            </layout>
+        </appender>
+
+        <logger name="org.springframework" level="info">
+            <appender-ref ref="STDOUT" />
+        </logger>
+
+        <logger name="${PACKAGE_NAME}" level="debug" additivity="false">
+            <appender-ref ref="STDOUT" />
+        </logger>
+
+    </springProfile>
 </configuration>
