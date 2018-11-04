@@ -1,13 +1,19 @@
 package com.finance.montecarlo.services;
 
 import com.finance.montecarlo.configuration.MonteCarloConfiguration;
+import com.finance.montecarlo.models.CalculatedPortfolio;
 import com.finance.montecarlo.models.MonteCarloRequest;
+import com.finance.montecarlo.models.MonteCarloResponse;
 import com.finance.montecarlo.models.Portfolio;
+import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Random;
 
 
@@ -16,23 +22,24 @@ public class MonteCarloService {
 
     private final MonteCarloConfiguration monteCarloConfiguration;
     private Random random;
-    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+    private final Logger LOGGER;
 
     @Autowired
     public MonteCarloService(MonteCarloConfiguration monteCarloConfiguration) {
         this.monteCarloConfiguration = monteCarloConfiguration;
         this.random = new Random();
+        this.LOGGER = LoggerFactory.getLogger(this.getClass());
     }
 
+    //TODO: docs
     private double calculateRandomNumber(double mean, double standardDeviation){
-        // https://stackoverflow.com/questions/6011943/java-normal-distribution
-        return random.nextGaussian() * standardDeviation + mean;
+        return random.nextGaussian() * (standardDeviation / 100) + (mean / 100);
     }
 
-    public boolean runSimulation(MonteCarloRequest portfolios){
+    //TODO: docs
+    public MonteCarloResponse runSimulation(MonteCarloRequest monteCarloRequest){
 
-        // get it working with one portfolio then add more...
-        Portfolio portfolio = portfolios.getPortfolios().get(0);
+        LOGGER.info("Entering runSimulation");
 
         int simulationSize = monteCarloConfiguration.getSimulationSize();
         int numberOfYears = monteCarloConfiguration.getNumberOfYears();
@@ -41,20 +48,41 @@ public class MonteCarloService {
 
         double random;
 
-        // ending zero represents any extra cash funds added. need to do this 20 times and account for inflation
-        // each interation use the previous ending balance to calculate the next one. for now one sample used
         // https://www.youtube.com/watch?v=Q5Fw2IRMjPQ
-//        double endingBalance = initialInvestmentAmount * (1 + random) + 0;
-        double investmentAmount;
-        double investment = initialInvestmentAmount;
+        // https://www.programcreek.com/java-api-examples/?api=org.apache.commons.math3.stat.descriptive.DescriptiveStatistics
+        // https://stackoverflow.com/questions/13791409/java-format-double-value-as-dollar-amount
+        // https://stackoverflow.com/questions/6011943/java-normal-distribution
 
-        for (int i = 0; i < numberOfYears; i++){
-            random = calculateRandomNumber(portfolio.getMean(), portfolio.getStandardDeviation());
-            investmentAmount = investment * (1 + random) + 0;
-            investment = investmentAmount;
-            LOGGER.info(String.valueOf(investment));
+        double[] simulatedInvestments = new double[simulationSize];
+        ArrayList<CalculatedPortfolio> calculatedPortfolioArray = new ArrayList<>();
+        MonteCarloResponse response = new MonteCarloResponse();
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance();
+
+        for (Portfolio portfolio: monteCarloRequest.getPortfolios()) {
+            for (int j = 0; j < simulationSize; j++) {
+                double rollingInvestmentAmount = initialInvestmentAmount;
+                for (int i = 0; i < numberOfYears; i++) {
+                    random = calculateRandomNumber(portfolio.getMean(), portfolio.getStandardDeviation());
+                    rollingInvestmentAmount = rollingInvestmentAmount * (1 + random) * (1 - inflationRate);
+                }
+                simulatedInvestments[j] = rollingInvestmentAmount;
+            }
+            DescriptiveStatistics descriptiveStatistics = new DescriptiveStatistics(simulatedInvestments);
+            CalculatedPortfolio calculatedPortfolio = new CalculatedPortfolio();
+
+            BeanUtils.copyProperties(portfolio,calculatedPortfolio);
+
+            calculatedPortfolio.setBestCasePerformance(currencyFormatter.format(descriptiveStatistics.getPercentile(90)));
+            calculatedPortfolio.setWorstCasePerformance(currencyFormatter.format(descriptiveStatistics.getPercentile(10)));
+            calculatedPortfolio.setMedian(currencyFormatter.format(descriptiveStatistics.getPercentile(50)));
+
+            calculatedPortfolioArray.add(calculatedPortfolio);
         }
 
-        return true;
+        BeanUtils.copyProperties(monteCarloConfiguration, response);
+        response.setPortfolios(calculatedPortfolioArray);
+
+        LOGGER.info("Leaving runSimulation");
+        return response;
     }
 }

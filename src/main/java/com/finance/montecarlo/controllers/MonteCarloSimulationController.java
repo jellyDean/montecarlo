@@ -22,13 +22,13 @@ import javax.validation.Valid;
 @RequestMapping("/v1")
 public class MonteCarloSimulationController {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
-
+    private final Logger LOGGER;
     private final MonteCarloService monteCarloService;
 
     @Autowired
     public MonteCarloSimulationController(MonteCarloService monteCarloService) {
         this.monteCarloService = monteCarloService;
+        this.LOGGER =  LoggerFactory.getLogger(this.getClass());
     }
 
     /**
@@ -43,7 +43,7 @@ public class MonteCarloSimulationController {
         try{
             if (bindingResult.hasErrors()){
                 // TODO: Clean up error response
-                LOGGER.warn("There has been an error with runMonteCarloSimulation form validation: ");
+                LOGGER.warn("There has been an error with runMonteCarloSimulation form validation");
                 response = new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
             } else {
                 // If there are no form validation errors submit the request to spService for processing

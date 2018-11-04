@@ -18,8 +18,8 @@ public class Portfolio {
     @NotNull(message = "standardDeviation is a required field")
     private double standardDeviation;
 
-    @NotNull(message = "portfolioName is a required field")
-    @NotEmpty(message = "portfolioName cannot be empty")
-    private String portfolioName;
+    @NotNull(message = "portfolioType is a required field")
+    @NotEmpty(message = "portfolioType cannot be empty")
+    private String portfolioType;
 
 }
