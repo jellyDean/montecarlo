@@ -1,4 +1,4 @@
-#Summary
+# Summary
 The monte carlo application is a spring boot web service that accepts portfolios to 
 run monte carlo simulations on. The input can consist of any number of portfolios. 
 The application is set up with a $100,000 initial investment with 10,000 simulations
