@@ -14,8 +14,8 @@ over a twenty year period. Inflation is accounted for at a rate of 3.5%. The med
 # Usage 
 1. Clone the repo `git clone https://github.com/jellyDean/montecarlo.git`
 2. Navigate to the repo that was cloned above `cd montecarlo`
-3. Package the app with mvn by entering `mvn package` 4 tests will run
-4. Run the app from the jar file create in step 3 by entering in `java -jar target/montecarlo-0.0.1-SNAPSHOT.jar`
+3. Package the app with mvn by entering `mvn package`, 4 tests will run
+4. Run the app from the jar file created in step 3 by entering in `java -jar target/montecarlo-0.0.1-SNAPSHOT.jar`
 5. Make a POST request to the app that looks like the below
     * URL http://localhost:8080/v1/finance/montecarlo
     * Body
