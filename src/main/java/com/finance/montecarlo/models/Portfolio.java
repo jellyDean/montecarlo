@@ -13,10 +13,10 @@ public class Portfolio {
     @NotNull(message = "mean is a required field")
     @DecimalMin(value = ".001", message = "mean must be greater than .001")
     @DecimalMax(value = "100", message = "mean must be less than 100.00")
-    private double mean;
+    private Double mean;
 
     @NotNull(message = "standardDeviation is a required field")
-    private double standardDeviation;
+    private Double standardDeviation;
 
     @NotNull(message = "portfolioType is a required field")
     @NotEmpty(message = "portfolioType cannot be empty")

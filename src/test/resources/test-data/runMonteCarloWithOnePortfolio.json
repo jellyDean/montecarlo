@@ -1,0 +1,9 @@
+{
+    "portfolios" :[
+        {
+            "mean": 9.4,
+            "standardDeviation": 15.675,
+            "portfolioType": "Aggressive"
+        }
+    ]
+}
