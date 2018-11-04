@@ -1,0 +1,14 @@
+{
+    "portfolios" :[
+        {
+            "mean": 9.4324,
+            "standardDeviation": 15.675,
+            "portfolioType": "Agressive"
+        },
+        {
+            "mean": 6.189,
+            "standardDeviation": 6.3438,
+            "portfolioType": "Very Conservative"
+        }
+    ]
+}
