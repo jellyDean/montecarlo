@@ -46,6 +46,7 @@ public class MonteCarloServiceImpl implements MonteCarloService {
      * @return Random number
      */
     private double calculateRandomNumber(double mean, double standardDeviation){
+        // convert mean and std deviation to percents, important
         return random.nextGaussian() * (standardDeviation / 100) + (mean / 100);
     }
 
