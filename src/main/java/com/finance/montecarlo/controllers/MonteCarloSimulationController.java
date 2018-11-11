@@ -1,6 +1,6 @@
 package com.finance.montecarlo.controllers;
 
-import com.finance.montecarlo.models.MonteCarloRequest;
+import com.finance.montecarlo.models.montecarlo.MonteCarloRequest;
 import com.finance.montecarlo.services.MonteCarloService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

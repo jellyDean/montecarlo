@@ -1,4 +1,4 @@
-package com.finance.montecarlo.models;
+package com.finance.montecarlo.models.montecarlo;
 
 import lombok.Data;
 

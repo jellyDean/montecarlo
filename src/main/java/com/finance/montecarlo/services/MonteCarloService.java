@@ -1,7 +1,7 @@
 package com.finance.montecarlo.services;
 
-import com.finance.montecarlo.models.MonteCarloRequest;
-import com.finance.montecarlo.models.MonteCarloResponse;
+import com.finance.montecarlo.models.montecarlo.MonteCarloRequest;
+import com.finance.montecarlo.models.montecarlo.MonteCarloResponse;
 /**
  * Interface of the service. Can be used for easy mocking
  *

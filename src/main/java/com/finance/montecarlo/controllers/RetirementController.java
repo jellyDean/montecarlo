@@ -1,9 +1,8 @@
 package com.finance.montecarlo.controllers;
 
-import com.finance.montecarlo.models.MonteCarloRequest;
-import com.finance.montecarlo.models.ProfileDocument;
-import com.finance.montecarlo.services.MonteCarloService;
+import com.finance.montecarlo.models.search.ElasticSearchQueryParameters;
 import com.finance.montecarlo.services.RetirementService;
+import com.finance.montecarlo.validators.ElasticSearchValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import javax.validation.Valid;
 
 /**
  * Controller for making requests to run simulations
@@ -39,20 +35,24 @@ public class RetirementController {
 
 
     //: TODO add docs
-    @RequestMapping(method = RequestMethod.POST, value = "/finance/retirement")
-    public ResponseEntity createEmployeeRetirementPlan(@Valid @RequestBody ProfileDocument profileDocument, BindingResult bindingResult) {
+    @RequestMapping(method = RequestMethod.GET, value = "/finance/retirement/plans")
+    public ResponseEntity createEmployeeRetirementPlan(ElasticSearchQueryParameters searchQueryParameters, BindingResult bindingResult) {
         LOGGER.debug("Entering createEmployeeRetirementPlan method");
 
         ResponseEntity response;
 
         try{
+
+            ElasticSearchValidator elasticSearchValidator = new ElasticSearchValidator();
+            elasticSearchValidator.validate(searchQueryParameters, bindingResult);
+
             if (bindingResult.hasErrors()){
                 // TODO: Clean up error response
                 LOGGER.warn("There has been an error with createEmployeeRetirementPlan form validation");
                 response = new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
             } else {
                 // If there are no form validation errors submit the request to spService for processing
-                response = new ResponseEntity<>(retirementService.createRetirementPlan(profileDocument), HttpStatus.OK);
+                response = new ResponseEntity<>(retirementService.getRetirementPlan(searchQueryParameters).getBody(), HttpStatus.OK);
             }
 
         }catch(Exception ex){
