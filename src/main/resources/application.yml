@@ -1,4 +1,8 @@
-simulation-size: 10000
-number-of-years: 20
-inflation-rate: .035
-initial-investment-amount: 100000
+monte-carlo:
+  simulation-size: 10000
+  number-of-years: 20
+  inflation-rate: .035
+  initial-investment-amount: 100000
+aws-elasticsearch:
+  host: https://search-finance-74z6mki36yiw2tlopizwnkrpia.us-east-1.es.amazonaws.com
+  index: retirement-plans
