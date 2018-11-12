@@ -16,16 +16,22 @@ import org.springframework.stereotype.Component;
 @Data
 @Component
 public class MonteCarloConfiguration {
-    @Value("${simulation-size}")
+    @Value("${monte-carlo.simulation-size}")
     private int simulationSize;
 
-    @Value("${number-of-years}")
+    @Value("${monte-carlo.number-of-years}")
     private int numberOfYears;
 
-    @Value("${inflation-rate}")
+    @Value("${monte-carlo.inflation-rate}")
     private double inflationRate;
 
-    @Value("${initial-investment-amount}")
+    @Value("${monte-carlo.initial-investment-amount}")
     private double initialInvestmentAmount;
+
+    @Value("${aws-elasticsearch.host}")
+    private String awsElasticSearchHost;
+
+    @Value("${aws-elasticsearch.index}")
+    private String awsElasticSearchIndex;
 
 }

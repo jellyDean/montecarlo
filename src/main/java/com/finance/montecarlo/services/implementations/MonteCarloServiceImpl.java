@@ -1,10 +1,10 @@
 package com.finance.montecarlo.services.implementations;
 
 import com.finance.montecarlo.configuration.MonteCarloConfiguration;
-import com.finance.montecarlo.models.CalculatedPortfolio;
-import com.finance.montecarlo.models.MonteCarloRequest;
-import com.finance.montecarlo.models.MonteCarloResponse;
-import com.finance.montecarlo.models.Portfolio;
+import com.finance.montecarlo.models.montecarlo.CalculatedPortfolio;
+import com.finance.montecarlo.models.montecarlo.MonteCarloRequest;
+import com.finance.montecarlo.models.montecarlo.MonteCarloResponse;
+import com.finance.montecarlo.models.montecarlo.Portfolio;
 import com.finance.montecarlo.services.MonteCarloService;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.slf4j.Logger;

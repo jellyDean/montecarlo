@@ -1,8 +1,8 @@
 package com.finance.montecarlo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.finance.montecarlo.models.MonteCarloRequest;
-import com.finance.montecarlo.models.MonteCarloResponse;
+import com.finance.montecarlo.models.montecarlo.MonteCarloRequest;
+import com.finance.montecarlo.models.montecarlo.MonteCarloResponse;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
