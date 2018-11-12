@@ -79,7 +79,7 @@ over a twenty year period. Inflation is accounted for at a rate of 3.5%. The med
 3. Download the required data from the `challenges\aws.pdf` file
 4. Unzip it in the `montecarlo\etl` directory. There should be a file called `f_5500_2017_latest.csv`
 5. Navigate to the etl directory `cd montecarlo\etl`
-6. Open `etl.py` and update the `aws_bulk_load_url` on line 67 to be what was returned in step 1. Make sure that `/_bulk` is at the end thus it
+6. Open `etl.py` and update the `aws_bulk_load_url` on line 42 to be what was returned in step 1. Make sure that `/_bulk` is at the end thus it
 will look like `aws_bulk_load_url = 'https://search-finance-74z6mki36yiw2tlopizwnkrpia.us-east-1.es.amazonaws.com/_bulk'`
 7. Confirm that all the required python libraries are install in the virtual environment
 8. Run the etl script by entering `python etl.py`. It will take 20 minutes to complete
