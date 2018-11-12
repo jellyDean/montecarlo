@@ -13,6 +13,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.validation.Valid;
+
 /**
  * Controller for making requests to run simulations
  *
@@ -36,7 +38,7 @@ public class RetirementController {
 
     //: TODO add docs
     @RequestMapping(method = RequestMethod.GET, value = "/finance/retirement/plans")
-    public ResponseEntity createEmployeeRetirementPlan(ElasticSearchQueryParameters searchQueryParameters, BindingResult bindingResult) {
+    public ResponseEntity createEmployeeRetirementPlan(@Valid ElasticSearchQueryParameters searchQueryParameters, BindingResult bindingResult) {
         LOGGER.debug("Entering createEmployeeRetirementPlan method");
 
         ResponseEntity response;

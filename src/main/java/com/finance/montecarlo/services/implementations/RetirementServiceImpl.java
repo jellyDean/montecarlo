@@ -3,6 +3,7 @@ package com.finance.montecarlo.services.implementations;
 import com.finance.montecarlo.configuration.MonteCarloConfiguration;
 import com.finance.montecarlo.models.search.ElasticSearchQueryParameters;
 import com.finance.montecarlo.services.RetirementService;
+import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,9 +31,6 @@ public class RetirementServiceImpl implements RetirementService {
     @Override
     public ResponseEntity<JSONObject> getRetirementPlan(ElasticSearchQueryParameters elasticSearchQueryParameters){
 
-
-        String url = "https://search-finance-74z6mki36yiw2tlopizwnkrpia.us-east-1.es.amazonaws.com/retirement-plans/_search?q=SPONS_DFE_MAIL_US_STATE:OH";
-
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
@@ -41,9 +39,41 @@ public class RetirementServiceImpl implements RetirementService {
         HttpEntity entity = new HttpEntity(headers);
 
         ResponseEntity<JSONObject> response = restTemplate.exchange(
-                url, HttpMethod.GET, entity, JSONObject.class);
+                generateQueryString(elasticSearchQueryParameters),
+                HttpMethod.GET,
+                entity,
+                JSONObject.class
+        );
 
         return response;
+    }
+
+    private String generateQueryString(ElasticSearchQueryParameters elasticSearchQueryParameters){
+
+        StringBuilder elasticSearchQueryString = new StringBuilder();
+        elasticSearchQueryString.append(monteCarloConfiguration.getAwsElasticSearchHost());
+        elasticSearchQueryString.append("/");
+        elasticSearchQueryString.append(monteCarloConfiguration.getAwsElasticSearchIndex());
+
+        if (!StringUtils.isBlank(elasticSearchQueryParameters.getPlanName())) {
+            elasticSearchQueryString.append("/_search?q=PLAN_NAME:" + elasticSearchQueryParameters.getPlanName());
+        }
+
+        else if (!StringUtils.isBlank(elasticSearchQueryParameters.getSponsorName())) {
+            elasticSearchQueryString.append("/_search?q=SPONSOR_DFE_NAME:" + elasticSearchQueryParameters.getSponsorName());
+
+        }
+
+        else if (!StringUtils.isBlank(elasticSearchQueryParameters.getSponsorState())) {
+            elasticSearchQueryString.append("/_search?q=SPONS_DFE_MAIL_US_STATE:" + elasticSearchQueryParameters.getSponsorState());
+        }
+        // If no params are sent return all
+        else {
+            elasticSearchQueryString.append("/_search");
+        }
+
+        return elasticSearchQueryString.toString();
+
     }
 
 }

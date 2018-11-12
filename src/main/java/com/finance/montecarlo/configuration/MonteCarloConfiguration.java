@@ -29,6 +29,9 @@ public class MonteCarloConfiguration {
     private double initialInvestmentAmount;
 
     @Value("${aws-elasticsearch.host}")
-    private String awsElasticSeachHost;
+    private String awsElasticSearchHost;
+
+    @Value("${aws-elasticsearch.index}")
+    private String awsElasticSearchIndex;
 
 }

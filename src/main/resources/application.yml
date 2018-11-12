@@ -4,4 +4,5 @@ monte-carlo:
   inflation-rate: .035
   initial-investment-amount: 100000
 aws-elasticsearch:
-  host: https://search-retirement-plans-kbupv65rx3tbl3nscsjdfkxlny.us-east-1.es.amazonaws.com
+  host: https://search-finance-74z6mki36yiw2tlopizwnkrpia.us-east-1.es.amazonaws.com
+  index: retirement-plans
