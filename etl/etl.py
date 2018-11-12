@@ -3,12 +3,7 @@ etl.py
 Developer: Dean Hutton
 Date: 11/11/18
 Summary: This script is used to parse the f_5500_2017_latest.csv file into a large JSON file. The large JSON file
-is then broken into chunks less than 10MB and uploaded one by one to aws elastic search.
-Pre-Requisites:
-https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-gsg-create-domain.html
-https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-gsg-upload-data.html
-https://stackoverflow.com/questions/14365027/python-post-binary-data
-https://stackoverflow.com/questions/16289859/splitting-large-text-file-into-smaller-text-files-by-line-numbers-using-python
+is then broken into chunks less than 10MB and uploaded one by one to aws elastic search using AWS bulk uploading endpoint.
 TODO:
 - Validate the input file format
 - Add proper exception handling
