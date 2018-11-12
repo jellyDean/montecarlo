@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.validation.Valid;
 
 /**
- * Controller for making requests to run simulations
+ * Controller for making queries to elastic search for get retirement financial data
  *
  * @author  Dean Hutton
  * @version 1.0
- * @since   2018-11-04
+ * @since   2018-11-11
  */
 @Controller
 @RequestMapping("/v1")
@@ -36,10 +36,16 @@ public class RetirementController {
     }
 
 
-    //: TODO add docs
+    /**
+     * Runs a query on aws elastic search to return retirement plan information
+     *
+     * @param searchQueryParameters The supported search params. Only one is supported at at time. If none are specified
+     *                              then the service will do a search on all on documents in the database.
+     * @return ResponseEntity containing results of the operation
+     */
     @RequestMapping(method = RequestMethod.GET, value = "/finance/retirement/plans")
-    public ResponseEntity createEmployeeRetirementPlan(@Valid ElasticSearchQueryParameters searchQueryParameters, BindingResult bindingResult) {
-        LOGGER.debug("Entering createEmployeeRetirementPlan method");
+    public ResponseEntity getRetirementPlanInformation(@Valid ElasticSearchQueryParameters searchQueryParameters, BindingResult bindingResult) {
+        LOGGER.debug("Entering getRetirementPlanInformation method");
 
         ResponseEntity response;
 
@@ -50,19 +56,19 @@ public class RetirementController {
 
             if (bindingResult.hasErrors()){
                 // TODO: Clean up error response
-                LOGGER.warn("There has been an error with createEmployeeRetirementPlan form validation");
+                LOGGER.warn("There has been an error with getRetirementPlanInformation form validation");
                 response = new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
             } else {
-                // If there are no form validation errors submit the request to spService for processing
+                // If there are no form validation errors submit the request to the service layer
                 response = new ResponseEntity<>(retirementService.getRetirementPlan(searchQueryParameters).getBody(), HttpStatus.OK);
             }
 
         }catch(Exception ex){
-            LOGGER.error("There has been an exception while running creating an employee retirement plan: ", ex);
+            LOGGER.error("There has been an exception while getting an employee retirement plan: ", ex);
             response = new ResponseEntity<>(ex, HttpStatus.BAD_REQUEST);
         }
 
-        LOGGER.debug("Leaving createEmployeeRetirementPlan method");
+        LOGGER.debug("Leaving getRetirementPlanInformation method");
         return response;
 
     }

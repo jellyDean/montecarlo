@@ -12,5 +12,4 @@ import com.finance.montecarlo.models.montecarlo.MonteCarloResponse;
 public interface MonteCarloService {
 
     MonteCarloResponse runSimulation(MonteCarloRequest monteCarloRequest);
-
 }

@@ -4,7 +4,13 @@ import lombok.Data;
 
 import javax.validation.constraints.Pattern;
 
-//TODO: Add docs
+/**
+ * Class used for specifying the request for getting retirement plans
+ *
+ * @author  Dean Hutton
+ * @version 1.0
+ * @since   2018-11-04
+ */
 @Data
 public class ElasticSearchQueryParameters {
 

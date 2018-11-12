@@ -8,7 +8,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-
+/**
+ * Validator that checks to see if the user entered one or more query parameters
+ *
+ * @author  Dean Hutton
+ * @version 1.0
+ * @since   2018-11-11
+ */
 public class ElasticSearchValidator implements Validator {
 
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());

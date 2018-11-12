@@ -15,7 +15,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-
+/**
+ * Implementation of the service that contains all the business logic to query aws ES
+ *
+ * @author  Dean Hutton
+ * @version 1.0
+ * @since   2018-11-11
+ */
 @Service
 public class RetirementServiceImpl implements RetirementService {
 
@@ -28,8 +34,15 @@ public class RetirementServiceImpl implements RetirementService {
         this.LOGGER = LoggerFactory.getLogger(this.getClass());
     }
 
+    /**
+     * Runs a query on aws elastic search to grab retirement info
+     *
+     * @param elasticSearchQueryParameters The query params if any
+     * @return ResponseEntity containing the results of the query
+     */
     @Override
     public ResponseEntity<JSONObject> getRetirementPlan(ElasticSearchQueryParameters elasticSearchQueryParameters){
+        LOGGER.info("Entering getRetirementPlan");
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -45,10 +58,18 @@ public class RetirementServiceImpl implements RetirementService {
                 JSONObject.class
         );
 
+        LOGGER.info("Leaving getRetirementPlan");
         return response;
     }
 
+    /**
+     * Generates the query string to be sent to aws based on the input params
+     *
+     * @param elasticSearchQueryParameters The query params if any
+     * @return String for making the request to aws elastic search
+     */
     private String generateQueryString(ElasticSearchQueryParameters elasticSearchQueryParameters){
+        LOGGER.info("Entering generateQueryString");
 
         StringBuilder elasticSearchQueryString = new StringBuilder();
         elasticSearchQueryString.append(monteCarloConfiguration.getAwsElasticSearchHost());
@@ -72,6 +93,7 @@ public class RetirementServiceImpl implements RetirementService {
             elasticSearchQueryString.append("/_search");
         }
 
+        LOGGER.info("Leaving generateQueryString");
         return elasticSearchQueryString.toString();
 
     }

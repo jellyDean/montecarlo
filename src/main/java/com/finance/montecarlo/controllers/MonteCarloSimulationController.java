@@ -53,7 +53,7 @@ public class MonteCarloSimulationController {
                 LOGGER.warn("There has been an error with runMonteCarloSimulation form validation");
                 response = new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
             } else {
-                // If there are no form validation errors submit the request to spService for processing
+                // If there are no form validation errors submit the request to the service layer
                 response = new ResponseEntity<>(monteCarloService.runSimulation(portfolios), HttpStatus.OK);
             }
 
